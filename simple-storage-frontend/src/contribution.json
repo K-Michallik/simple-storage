@@ -1,0 +1,12 @@
+{
+  "applicationNodes": [
+    {
+      "translationPath": "assets/i18n/",
+      "behaviorURI": "simple-storage.worker.js",
+      "presenterURI": "main.js",
+      "componentTagName": "urcaps-r-us-simple-storage-simple-storage"
+    }
+  ],
+  "programNodes": [],
+  "smartSkills": []
+}

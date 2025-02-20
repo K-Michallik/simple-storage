@@ -1,0 +1,10 @@
+{
+  "application": {
+    "nodes": {
+      "urcaps-r-us-simple-storage-simple-storage": {
+        "title": "Simple Storage",
+        "supportiveText": "Simple Storage - Supportive Text"
+      }
+    }
+  }
+}

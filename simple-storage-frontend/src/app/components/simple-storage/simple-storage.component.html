@@ -1,0 +1,28 @@
+@if (applicationNode){
+    <div class="main">
+        <div class="content">
+            <ur-dialog-input
+                [type]="'text'"
+                [label]="'Input Text'"
+                [placeholder]="'Write your text here'"
+                (valueChanged)="onSubmit()"
+            ></ur-dialog-input>
+            <ur-button
+                [type]="filled"
+                (handleClick)="onWriteClick()"
+            >Write To Filee</ur-button>
+            @if (writeResponse$ | async; as reply) {
+                <h3>Write status: {{ reply }}</h3>
+            }
+        </div>
+        <div class="content">
+            <ur-button
+                [type]="filled"
+                (handleClick)="onReadClick()"
+            >Read Data</ur-button>
+            @if (readResponse$ | async; as text) {
+                <h3>Write status: {{ text }}</h3>
+            }
+        </div>
+    </div>
+}

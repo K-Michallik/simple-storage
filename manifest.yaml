@@ -1,0 +1,24 @@
+metadata:
+  vendorID: "urcaps-r-us"
+  urcapID: "simple-storage"
+  vendorName: "urcaps-r-us"
+  urcapName: "simple-storage"
+  version: 1.0.0
+artifacts:
+  webArchives:
+  - id: "simple-storage-frontend"
+    folder: "simple-storage-frontend"
+    devUrl: http://host.gateway.ip:4200/
+  containers:
+  - id: "simple-storage-backend"
+    image: "simple-storage-backend:latest"
+    mounts:
+      - mount: tmpfs:/app/data/tmp/simplestorage
+        access: rw
+      - mount: persistent:/app/data/persistent/simplestorage
+        access: rw
+    ingress:
+    - id: rest-api
+      containerPort: 51600
+      protocol: http
+      proxyUrl: /
