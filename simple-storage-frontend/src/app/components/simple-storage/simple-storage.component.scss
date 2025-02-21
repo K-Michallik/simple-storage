@@ -8,6 +8,7 @@
   gap: 10px;
 
   .content {
+    @extend .main;
     gap: 8px;
   }
 

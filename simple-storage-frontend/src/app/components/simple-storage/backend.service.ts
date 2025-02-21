@@ -12,24 +12,9 @@ export class BackendService {
     public readonly readData$: Observable<string | null> = this.readDataSubject.asObservable();
 
     private writeDataSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
-    public readonly writeData$: Observable<string | null> = this.readDataSubject.asObservable();
+    public readonly writeData$: Observable<string | null> = this.writeDataSubject.asObservable();
 
     constructor(private http: HttpClient) {}
-
-
-    // echoServer(url: string, ip: string, port: string, message:string): void {
-    //     const fullUrl = 'http://' + url + `/connect?ip=${ip}&port=${port}&message=${encodeURIComponent(message)}`;
-    //     this.http.get<{ response: string }>(fullUrl).subscribe({
-    //       next: (serverResponse) => {
-    //         console.log(`Server response received: ${JSON.stringify(serverResponse)}`);
-    //         this.echoSubject.next(serverResponse.response);
-    //       },
-    //       error: (error) => {
-    //         console.error(`Error connecting to server: ${error}`);
-    //         this.echoSubject.next('Error connecting to server. Is the server running?');
-    //       }
-    //     });
-    //   }
 
     readData(url: string): void {
         const fullUrl = 'http://' + url + `/read`;
@@ -42,19 +27,25 @@ export class BackendService {
                 console.error(`Error communicating with server: ${error}`);
                 this.readDataSubject.next(`Error communicating with server: ${error}`);
             }
-        })
+        });
     }
 
     writeData(url: string, text: string): void {
         const fullUrl = 'http://' + url + `/write`;
-        this.http.post<{message: string}>(fullUrl, { text: text }).subscribe({
+        if (text) {
+          this.http.post<{message: string}>(fullUrl, { text: text }).subscribe({
             next: (serverResponse) => {
                 console.log(`Server response received: ${JSON.stringify(serverResponse)}`);
+                this.writeDataSubject.next(serverResponse.message);
             },
             error: (error) => {
                 console.error(`Error communicating with server: ${error}`);
             }
         });
+        }
+        else {
+          this.writeDataSubject.next('Error: no text provided.');
+        }
     }
 
 

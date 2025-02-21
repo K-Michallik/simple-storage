@@ -5,14 +5,14 @@
                 [type]="'text'"
                 [label]="'Input Text'"
                 [placeholder]="'Write your text here'"
-                (valueChanged)="onSubmit()"
+                (valueChanged)="onSubmit($event)"
             ></ur-dialog-input>
             <ur-button
                 [type]="filled"
                 (handleClick)="onWriteClick()"
-            >Write To Filee</ur-button>
+            >Write To File</ur-button>
             @if (writeResponse$ | async; as reply) {
-                <h3>Write status: {{ reply }}</h3>
+                <p>{{ reply }}</p>
             }
         </div>
         <div class="content">
@@ -21,7 +21,7 @@
                 (handleClick)="onReadClick()"
             >Read Data</ur-button>
             @if (readResponse$ | async; as text) {
-                <h3>Write status: {{ text }}</h3>
+                <p>Contents: {{ text }}</p>
             }
         </div>
     </div>

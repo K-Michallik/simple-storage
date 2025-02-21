@@ -17,7 +17,6 @@ def read_root():
 
 @app.post("/write")
 def write_text(request: WriteRequest):
-    # Get the base path of the current file (assumes server.py is in /app)
     base_path = pathlib.Path(__file__).parent
     
     # Build the path to the storage directory and ensure it exists.
@@ -28,10 +27,9 @@ def write_text(request: WriteRequest):
     target_file = storage_dir / "sample_text.txt"
     
     try:
-        # Use the utility function to safely write the data.
+        # Use the utility function to safely write the data. For more info, read the "Persisting Data" section of the docs.
         writeDataToFile(target_file, request.text)
     except Exception as e:
-        # If there is an error, return a 500 status with the error message.
         raise HTTPException(status_code=500, detail=str(e))
     
     return {"message": "Data written successfully!"}
@@ -39,7 +37,6 @@ def write_text(request: WriteRequest):
 
 @app.get("/read")
 def read_text():
-    # Get the base path of the current file (assumes server.py is in /app)
     base_path = pathlib.Path(__file__).parent
     
     # Build the path to the storage directory and the target file.
@@ -61,5 +58,4 @@ def read_text():
 
 
 if __name__ == "__main__":
-
     uvicorn.run(app, host="0.0.0.0", port=51600)
